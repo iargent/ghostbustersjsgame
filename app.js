@@ -22,7 +22,7 @@ require(['lib/modules/template'], function () {
     for (var i = 0; i < 10; i++) {
         sleepFor(50);
         if (typeof last !== 'undefined') {
-            $("#" + last).text(" ");
+            $("#" + last).text("&nbsp;");
         }
         $("#" + i).text("5");
         var last = i;
