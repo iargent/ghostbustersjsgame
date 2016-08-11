@@ -9,6 +9,24 @@ require.config({
     }
 });
 
-require(['lib/modules/template'], function (template) {
-    template.showName("Jack");
+require(['lib/modules/template'], function () {
+
+    function sleepFor(sleepDuration) {
+        var now = new Date().getTime();
+        while (new Date().getTime() < now + sleepDuration) { /* do nothing */
+        }
+    }
+
+    //noinspection JSAnnotator
+    $("#0").text("5");
+    for (var i = 0; i < 10; i++) {
+        sleepFor(50);
+        if (typeof last !== 'undefined') {
+            $("#" + last).text(" ");
+        }
+        $("#" + i).text("5");
+        var last = i;
+    }
+//    alert($("#cell0").text());
+
 });
