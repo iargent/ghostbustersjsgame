@@ -14,8 +14,8 @@ require(['lib/modules/template'], function () {
     var setGhost = function() {
         return Math.floor(Math.random()*10);
     }
-    play();
 
+    $(".button").on('click', play);
 
     function play() {
         var ghost=setGhost();
@@ -23,6 +23,7 @@ require(['lib/modules/template'], function () {
         var score=0;
         var delay=200;
         var dead=false;
+        $("#controller").text(0);
 
         document.onkeydown = function (e) {
             switch (e.keyCode) {
@@ -34,7 +35,7 @@ require(['lib/modules/template'], function () {
                     var v = $("#controller").text();
                     if (ghost==v) {
                         $("#"+(ghostpos-1)).text(" ");
-                        score+=(ghost+200-delay)*10;
+                        score+=(ghost+200-delay);
                         delay--;
                         ghost=setGhost();
                         ghostpos=0;
@@ -46,7 +47,7 @@ require(['lib/modules/template'], function () {
 
         function iter() {
             if (ghostpos > 0) $("#" + (ghostpos - 1)).text(" ");
-            $("#" + ghostpos).text(ghost)
+            $("#" + ghostpos).text(ghost);
             if (ghostpos == 20) {
                 dead = true;
                 if (dead) alert("You scored "+score+" points.");
