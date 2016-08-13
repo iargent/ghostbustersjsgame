@@ -11,28 +11,50 @@ require.config({
 
 require(['lib/modules/template'], function () {
 
-    function sleepFor(sleepDuration) {
-        var now = new Date().getTime();
-        while (new Date().getTime() < now + sleepDuration) { /* do nothing */
+    var setGhost = function() {
+        return Math.floor(Math.random()*10);
+    }
+    play();
+
+
+    function play() {
+        var ghost=setGhost();
+        var ghostpos=0;
+        var score=0;
+        var delay=200;
+        var dead=false;
+
+        document.onkeydown = function (e) {
+            switch (e.keyCode) {
+                case 77:
+                    var v = $("#controller").text();
+                    $("#controller").text(v==9?0:++v);
+                    break;
+                case 88:
+                    var v = $("#controller").text();
+                    if (ghost==v) {
+                        $("#"+(ghostpos-1)).text(" ");
+                        score+=(ghost+200-delay)*10;
+                        delay--;
+                        ghost=setGhost();
+                        ghostpos=0;
+                    }
+                default:
+                    console.log(e);
+            }
         }
+
+        function iter() {
+            if (ghostpos > 0) $("#" + (ghostpos - 1)).text(" ");
+            $("#" + ghostpos).text(ghost)
+            if (ghostpos == 20) {
+                dead = true;
+                if (dead) alert("You scored "+score+" points.");
+                return;
+            }
+            ghostpos++;
+            setTimeout(iter, delay);
+        };
+        iter();
     }
-
-    function iter(i) {
-        if (i>0) $("#" + (i - 1)).text(" ");
-        $("#" + i).text("5")
-        if (i==20) return;
-        setTimeout(function() {
-            iter(++i);
-        }, 200);
-        console.log(i);
-    }
-
-    //noinspection JSAnnotator
-    $("#0").text("5");
-    var i=0;
-    setTimeout(function () {
-        iter(0);
-    }, 200);
-//    alert($("#cell0").text());
-
 });
