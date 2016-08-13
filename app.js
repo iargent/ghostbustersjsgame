@@ -36,7 +36,7 @@ require(['lib/modules/template'], function () {
                     if (ghost==con.text()) {
                         $("#"+(ghostpos-1)).text(" ");
                         score+=(ghost+200-delay);
-                        delay--;
+                        delay-=2;
                         ghost=setGhost();
                         ghostpos=0;
                     }
